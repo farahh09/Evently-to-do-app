@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:evently/core/app_theme_data.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -9,10 +10,7 @@ class IntroScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFF2FEFF),
       appBar: AppBar(
-        backgroundColor: Color(0xFFF2FEFF),
-        centerTitle: true,
         title: Image.asset('assets/images/evently_logo.png'),
       ),
       body: Padding(
@@ -22,14 +20,12 @@ class IntroScreen extends StatelessWidget {
           spacing: 28,
           children: [
             Image.asset('assets/images/creative.png'),
-            Text("onboardingTitle".tr(), style: GoogleFonts.inter(
-              fontSize: 20, color: Color(0xFF5669FF), fontWeight: FontWeight.bold
-            ),),
-            Text("onboardingSubTitle".tr(), style: GoogleFonts.inter(fontSize: 16, color: Colors.black, fontWeight: FontWeight.w500),),
+            Text("onboardingTitle".tr(), style: Theme.of(context).textTheme.titleLarge),
+            Text("onboardingSubTitle".tr(), style: Theme.of(context).textTheme.bodyMedium),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("language".tr(), style: GoogleFonts.inter(fontSize: 20, color: Color(0xFF5669FF), fontWeight: FontWeight.w500)),
+                Text("language".tr(), style: Theme.of(context).textTheme.bodySmall),
                 Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(30),
@@ -76,7 +72,7 @@ class IntroScreen extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("theme".tr(), style: GoogleFonts.inter(fontSize: 20, color: Color(0xFF5669FF), fontWeight: FontWeight.w500)),
+                Text("theme".tr(), style: Theme.of(context).textTheme.bodySmall),
                 Container(
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(30),
@@ -118,7 +114,7 @@ class IntroScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(16)
                   )
                 ),
-                child:  Text("Let’s Start", style: GoogleFonts.inter(fontSize: 20, color: Colors.white, fontWeight: FontWeight.w500) ),
+                child:  Text("Let’s Start", style: Theme.of(context).textTheme.displaySmall),
               ),
             )
           ],

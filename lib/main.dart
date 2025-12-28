@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:evently/core/app_theme_data.dart';
 import 'package:evently/screens/intro_screen/intro_screen.dart';
 import 'package:evently/screens/login_screen/login_screen.dart';
 import 'package:flutter/material.dart';
@@ -20,9 +21,15 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       locale: context.locale,
+
+      theme: AppThemeData.lightTheme,
+      darkTheme: AppThemeData.darkTheme,
+      themeMode: ThemeMode.light,
+
       initialRoute: IntroScreen.routeName,
       routes: {
         IntroScreen.routeName : (c) => IntroScreen(),
