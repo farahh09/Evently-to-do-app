@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:evently/core/app_theme_data.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import '../../providers/theme_provider.dart';
 
 class IntroScreen extends StatelessWidget {
   static const String routeName = 'IntroScreen';
@@ -9,6 +9,7 @@ class IntroScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var provider=Provider.of<ThemeProvider>(context);
     return Scaffold(
       appBar: AppBar(
         title: Image.asset('assets/images/evently_logo.png'),
@@ -19,7 +20,7 @@ class IntroScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           spacing: 28,
           children: [
-            Image.asset('assets/images/creative.png'),
+            provider.themeMode == ThemeMode.light? Image.asset('assets/images/creative.png') : Image.asset('assets/images/intro_dark.png'),
             Text("onboardingTitle".tr(), style: Theme.of(context).textTheme.titleLarge),
             Text("onboardingSubTitle".tr(), style: Theme.of(context).textTheme.bodyMedium),
             Row(
@@ -52,7 +53,6 @@ class IntroScreen extends StatelessWidget {
                               ) : null,
                               child: Image.asset('assets/images/usa.png', width: 30, height: 30,)),
                         ),
-                        //padding: EdgeInsets.only(right: 5),
                         InkWell(
                           onTap: (){
                               context.setLocale(Locale("ar", "EG"));
@@ -84,19 +84,50 @@ class IntroScreen extends StatelessWidget {
                   child: Row(
                     spacing: 20,
                     children: [
-                      Container(
-                        decoration:BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
-                          color: Color(0xFF5669FF),
-                            border: BoxBorder.all(
-                                color: Color(0xFF5669FF),
-                                width: 2
-                            )
+                      InkWell(
+                        onTap: (){
+                          provider.changeTheme(ThemeMode.light);
+                        },
+                        child: Container(
+                          padding: provider.themeMode == ThemeMode.light? null : EdgeInsets.only(left: 5),
+                          decoration: provider.themeMode == ThemeMode.light? BoxDecoration(
+                            borderRadius: BorderRadius.circular(30),
+                            color: Color(0xFF5669FF),
+                              border: BoxBorder.all(
+                                  color: Color(0xFF5669FF),
+                                  width: 2
+                              )
+                          ) : null,
+                            child: Image.asset(
+                              'assets/images/sun.png',
+                              width: 30,
+                              height: 30,
+                              color: provider.themeMode == ThemeMode.light? null : Theme.of(context).colorScheme.primary
+                            ),
                         ),
-                        child: Image.asset('assets/images/sun.png', width: 30, height: 30,)),
-                      Padding(
-                        padding: EdgeInsets.only(right: 5),
-                        child: Image.asset('assets/images/moon.png', width: 30, height: 30),
+                      ),
+                      InkWell(
+                        onTap: (){
+                          provider.changeTheme(ThemeMode.dark);
+                        },
+                        child: Container(
+                          padding: provider.themeMode == ThemeMode.dark? null : EdgeInsets.only(right: 5),
+                          decoration: provider.themeMode == ThemeMode.dark? BoxDecoration(
+                              borderRadius: BorderRadius.circular(30),
+                              color: Color(0xFF5669FF),
+                              border: BoxBorder.all(
+                                  color: Color(0xFF5669FF),
+                                  width: 2
+                              )
+                          ) : null,
+                          child: Image.asset(
+                              'assets/images/moon.png',
+                              width: 30,
+                              height: 30,
+                              color: provider.themeMode == ThemeMode.dark? Theme.of(context).colorScheme.secondary : Theme.of(context).colorScheme.primary
+
+                          ),
+                        ),
                       ),
                     ],
                   ),
