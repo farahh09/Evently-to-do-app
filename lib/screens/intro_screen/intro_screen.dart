@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -21,47 +22,61 @@ class IntroScreen extends StatelessWidget {
           spacing: 28,
           children: [
             Image.asset('assets/images/creative.png'),
-            Text("Personalize Your Experience", style: GoogleFonts.inter(
+            Text("onboardingTitle".tr(), style: GoogleFonts.inter(
               fontSize: 20, color: Color(0xFF5669FF), fontWeight: FontWeight.bold
             ),),
-            Text("Choose your preferred theme and language to get started with a comfortable, tailored experience that suits your style.", style: GoogleFonts.inter(fontSize: 16, color: Colors.black, fontWeight: FontWeight.w500),),
+            Text("onboardingSubTitle".tr(), style: GoogleFonts.inter(fontSize: 16, color: Colors.black, fontWeight: FontWeight.w500),),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("Language", style: GoogleFonts.inter(fontSize: 20, color: Color(0xFF5669FF), fontWeight: FontWeight.w500)),
+                Text("language".tr(), style: GoogleFonts.inter(fontSize: 20, color: Color(0xFF5669FF), fontWeight: FontWeight.w500)),
                 Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30),
-                    border: BoxBorder.all(
-                      color: Color(0xFF5669FF),
-                      width: 2
-                    )
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(30),
+                      border: BoxBorder.all(
+                        color: Color(0xFF5669FF),
+                        width: 2
+                      )
+                    ),
+                    child: Row(
+                      spacing: 20,
+                      children: [
+                        InkWell(
+                          onTap: (){
+                            context.setLocale(Locale("en", "US"));
+                          },
+                          child: Container(
+                              padding: context.locale == Locale("en", "US") ? null : EdgeInsetsGeometry.all(5),
+                              decoration: context.locale == Locale("en", "US")? BoxDecoration(
+                                  borderRadius: BorderRadius.circular(30),
+                                  border: BoxBorder.all(
+                                      color: Color(0xFF5669FF),
+                                      width: 5
+                                  )
+                              ) : null,
+                              child: Image.asset('assets/images/usa.png', width: 30, height: 30,)),
+                        ),
+                        //padding: EdgeInsets.only(right: 5),
+                        InkWell(
+                          onTap: (){
+                              context.setLocale(Locale("ar", "EG"));
+                            },
+                          child: Container(
+                            padding: context.locale == Locale("ar", "EG") ? null : EdgeInsetsGeometry.all(5),
+                             decoration: context.locale == Locale("ar", "EG") ? BoxDecoration(
+                                borderRadius: BorderRadius.circular(30),
+                                border: BoxBorder.all(color: Color(0xFF5669FF), width: 5)
+                             ) : null,
+                            child: Image.asset('assets/images/eg.png', width: 30, height: 30))),
+                      ],
+                    ),
                   ),
-                  child: Row(
-                    spacing: 20,
-                    children: [
-                      Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(30),
-                              border: BoxBorder.all(
-                                  color: Color(0xFF5669FF),
-                                  width: 5
-                              )
-                          ),
-                          child: Image.asset('assets/images/usa.png', width: 30, height: 30,)),
-                      Padding(
-                        padding: EdgeInsets.only(right: 5),
-                        child: Image.asset('assets/images/eg.png', width: 30, height: 30),
-                      ),
-                    ],
-                  ),
-                )
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("Theme", style: GoogleFonts.inter(fontSize: 20, color: Color(0xFF5669FF), fontWeight: FontWeight.w500)),
+                Text("theme".tr(), style: GoogleFonts.inter(fontSize: 20, color: Color(0xFF5669FF), fontWeight: FontWeight.w500)),
                 Container(
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(30),
