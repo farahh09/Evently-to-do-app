@@ -2,10 +2,11 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../providers/theme_provider.dart';
+import 'intro_screen.dart';
 
-class IntroScreen extends StatelessWidget {
-  static const String routeName = 'IntroScreen';
-  const IntroScreen({super.key});
+class SetupScreen extends StatelessWidget {
+  static const String routeName = 'SetupScreen';
+  const SetupScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -137,7 +138,9 @@ class IntroScreen extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                  onPressed: (){},
+                  onPressed: (){
+                    Navigator.pushReplacementNamed(context, IntroScreen.routeName);
+                  },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Color(0xFF5669FF),
                   padding: EdgeInsetsGeometry.symmetric(vertical: 16),
