@@ -9,7 +9,7 @@ import '../login_screen/login_screen.dart';
 class IntroScreen extends StatefulWidget {
   static const String routeName = 'IntroScreen';
 
-  IntroScreen({super.key});
+  const IntroScreen({super.key});
 
   @override
   State<IntroScreen> createState() => _IntroScreenState();
@@ -121,24 +121,23 @@ class _IntroScreenState extends State<IntroScreen> {
                         curve: Curves.easeInOut,
                       );
                     } else {
-                     }
+                      Navigator.pushReplacementNamed(context, LoginScreen.routeName);
+                    }
                   },
                   style: ElevatedButton.styleFrom(
                       backgroundColor: context.primary(),
                       padding: EdgeInsetsGeometry.symmetric(vertical: 16),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(16),
-
                       )
                   ),
-                  child:  Text(currentIndex == 2? 'Get Started' : 'Next' , style: context.displayLarge()),
+                  child: Text(currentIndex == 2? 'Get Started' : 'Next' , style: context.displayLarge()),
                 ),
               ),
             ),
           )
         ],
       ),
-
     );
   }
 }
