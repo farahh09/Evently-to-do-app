@@ -1,8 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:evently/core/app_theme_data.dart';
 import 'package:evently/providers/theme_provider.dart';
-import 'package:evently/screens/intro_screen/intro_screen.dart';
 import 'package:evently/screens/login_screen/login_screen.dart';
+import 'package:evently/screens/onboarding/intro_screen.dart';
+import 'package:evently/screens/onboarding/setup_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -35,8 +36,9 @@ class MyApp extends StatelessWidget {
       darkTheme: AppThemeData.darkTheme,
       themeMode: provider.themeMode,
 
-      initialRoute: IntroScreen.routeName,
+      initialRoute: SetupScreen.routeName,
       routes: {
+        SetupScreen.routeName : (c) => SetupScreen(),
         IntroScreen.routeName : (c) => IntroScreen(),
         LoginScreen.routeName : (c) => LoginScreen(),
       },
