@@ -10,12 +10,19 @@ extension ThemeExtentions on BuildContext{
   Color surface(){
     return Theme.of(this).colorScheme.surface;
   }
+  Color onSurface(){
+    return Theme.of(this).colorScheme.onSurface;
+  }
+  Color outline(){
+    return Theme.of(this).colorScheme.outline;
+  }
   Color onPrimary(){
     return Theme.of(this).colorScheme.onPrimary;
   }
-  Color containerBorder(){
-    return Theme.of(this).colorScheme.primaryContainer;
+  Color error(){
+    return Theme.of(this).colorScheme.error;
   }
+
   TextStyle bodySmall(){
     return Theme.of(this).textTheme.bodySmall!;
   }
@@ -24,6 +31,12 @@ extension ThemeExtentions on BuildContext{
   }
   TextStyle displaySmall(){
     return Theme.of(this).textTheme.displaySmall!;
+  }
+  TextStyle labelMedium(){
+    return Theme.of(this).textTheme.labelMedium!;
+  }
+  TextStyle headlineLarge(){
+    return Theme.of(this).textTheme.headlineLarge!;
   }
   Color onSecondary(){
     return Theme.of(this).colorScheme.onSecondary;
