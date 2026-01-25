@@ -1,7 +1,6 @@
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../core/extensions.dart';
 import '../providers/theme_provider.dart';
 
@@ -11,7 +10,7 @@ class OnboardingModel extends StatelessWidget {
   final String description;
   final double index;
 
-  OnboardingModel({
+  const OnboardingModel({
     super.key,
     required this.image,
     required this.title,
