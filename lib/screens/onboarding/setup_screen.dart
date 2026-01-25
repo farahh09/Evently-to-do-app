@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:evently/core/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../core/cache_helper.dart';
 import '../../providers/theme_provider.dart';
 import 'intro_screen.dart';
 
@@ -48,12 +49,12 @@ class SetupScreen extends StatelessWidget {
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8),
                             side: provider.themeMode == ThemeMode.light? BorderSide.none : BorderSide(
-                              color: context.containerBorder(),
+                              color: context.outline(),
                               width: 0.5,
                             ),
                           )
                       ),
-                      child: Text("English", style: context.displaySmall().copyWith(color: provider.themeMode == ThemeMode.dark? context.onSecondary() : context.locale == Locale("en", "US") ? context.onSecondary() : context.primary())),
+                      child: Text("English", style: context.displaySmall().copyWith(color: provider.themeMode == ThemeMode.dark? context.onSurface() : context.locale == Locale("en", "US") ? context.onSecondary() : context.primary())),
                     ),
                     ElevatedButton(
                       onPressed: (){
@@ -64,12 +65,12 @@ class SetupScreen extends StatelessWidget {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),
                             side: provider.themeMode == ThemeMode.dark? BorderSide(
-                              color: context.containerBorder(),
+                              color: context.outline(),
                               width: 0.5,
                             ) : BorderSide.none,
                           ),
                       ),
-                      child:  Text("Arabic", style: context.displaySmall().copyWith(color: provider.themeMode == ThemeMode.dark? context.onSecondary() : context.locale == Locale("en", "US") ? context.primary() : context.onSecondary())),
+                      child:  Text("Arabic", style: context.displaySmall().copyWith(color: provider.themeMode == ThemeMode.dark? context.onSurface() : context.locale == Locale("en", "US") ? context.primary() : context.onSecondary())),
                     ),
                   ],
                 ),
@@ -94,7 +95,7 @@ class SetupScreen extends StatelessWidget {
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8),
                             side: provider.themeMode == ThemeMode.dark? BorderSide(
-                              color: context.containerBorder(),
+                              color: context.outline(),
                               width: 0.5,
                             ) : BorderSide.none,
                           )
@@ -110,12 +111,12 @@ class SetupScreen extends StatelessWidget {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8),
                               side: provider.themeMode == ThemeMode.dark ? BorderSide(
-                                color: context.containerBorder(),
+                                color: context.outline(),
                                 width: 0.5,
                               ) : BorderSide.none,
                             )
                         ),
-                        child: Image.asset('assets/images/moon.png', width: 24, height: 24, color: provider.themeMode == ThemeMode.light? context.primary() : context.onSecondary(),)),
+                        child: Image.asset('assets/images/moon.png', width: 24, height: 24, color: provider.themeMode == ThemeMode.light? context.primary() : context.onSurface(),)),
                   ],
                 )
               ],
@@ -125,7 +126,8 @@ class SetupScreen extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                  onPressed: (){
+                  onPressed: () async{
+                    await CacheHelper.saveBool(true);
                     Navigator.pushReplacementNamed(context, IntroScreen.routeName);
                   },
                 style: ElevatedButton.styleFrom(

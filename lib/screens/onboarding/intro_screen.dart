@@ -1,10 +1,9 @@
 import 'package:evently/model/onboarding_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../../core/extensions.dart';
 import '../../providers/theme_provider.dart';
-import '../login_screen/login_screen.dart';
+import '../auth/login_screen.dart';
 
 class IntroScreen extends StatefulWidget {
   static const String routeName = 'IntroScreen';
@@ -57,7 +56,7 @@ class _IntroScreenState extends State<IntroScreen> {
             color: provider.themeMode == ThemeMode.light ? context.onSecondary() : context.onPrimary(),
             borderRadius: BorderRadius.circular(8),
             border: BoxBorder.all(
-              color: provider.themeMode == ThemeMode.light ? Color(0xFFF0F0F0) : context.containerBorder(),
+              color: provider.themeMode == ThemeMode.light ? Color(0xFFF0F0F0) : context.outline(),
             )
           ),
           child: InkWell(
@@ -83,7 +82,7 @@ class _IntroScreenState extends State<IntroScreen> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
                     side: provider.themeMode == ThemeMode.light? BorderSide.none : BorderSide(
-                      color: context.containerBorder(),
+                      color: context.outline(),
                       width: 0.5,
                     ),
                   )
@@ -121,6 +120,7 @@ class _IntroScreenState extends State<IntroScreen> {
                         curve: Curves.easeInOut,
                       );
                     } else {
+
                       Navigator.pushReplacementNamed(context, LoginScreen.routeName);
                     }
                   },

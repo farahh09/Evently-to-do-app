@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "590894104355",
+    "project_id": "evently-farah",
+    "storage_bucket": "evently-farah.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:590894104355:android:73bfe3bc374bedb30c9696",
+        "android_client_info": {
+          "package_name": "com.example.evently"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDSHqpCfBRhiFSgw3ETM2EbuPESpl2x7Zw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

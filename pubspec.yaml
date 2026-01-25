@@ -17,6 +17,9 @@ dependencies:
   provider: ^6.1.5+1
   introduction_screen: ^4.0.0
   dots_indicator: ^4.0.1
+  firebase_core: ^4.4.0
+  firebase_auth: ^6.1.4
+  shared_preferences: ^2.5.4
 
 dev_dependencies:
   flutter_test:
