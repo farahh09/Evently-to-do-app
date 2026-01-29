@@ -64,6 +64,14 @@ class AppThemeData {
         color: Color(0xFF686868),
         fontWeight: FontWeight.w400,
       ),
+      titleSmall: GoogleFonts.poppins(
+        fontSize: 14,
+        color: Color(0xFF0E3A99),
+        decoration: TextDecoration.underline,
+        decorationColor: Color(0xFF0E3A99),
+        fontWeight: FontWeight.w400,
+      ),
+
     ),
   );
   static ThemeData darkTheme = ThemeData(
@@ -126,6 +134,13 @@ class AppThemeData {
       labelMedium: GoogleFonts.poppins(
         fontSize: 14,
         color: Colors.white,
+        fontWeight: FontWeight.w400,
+      ),
+      titleSmall: GoogleFonts.poppins(
+        fontSize: 14,
+        color: Color(0xFF457AED),
+        decoration: TextDecoration.underline,
+        decorationColor: Color(0xFF457AED),
         fontWeight: FontWeight.w400,
       ),
     ),

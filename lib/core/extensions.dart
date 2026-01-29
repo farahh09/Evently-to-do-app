@@ -35,6 +35,9 @@ extension ThemeExtentions on BuildContext{
   TextStyle labelMedium(){
     return Theme.of(this).textTheme.labelMedium!;
   }
+  TextStyle titleSmall(){
+    return Theme.of(this).textTheme.titleSmall!;
+  }
   TextStyle headlineLarge(){
     return Theme.of(this).textTheme.headlineLarge!;
   }

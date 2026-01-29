@@ -7,18 +7,21 @@ import 'extensions.dart';
 class CustomTextField extends StatelessWidget {
   final String hintText;
   final bool obscureText;
-  final String icon;
+  final String? icon;
   final String? Function(String?)? validator;
   final VoidCallback? onPressed;
   final TextEditingController? controller;
+  final int maxLines;
 
   const CustomTextField({
     super.key,
     required this.hintText,
     required this.obscureText,
-    required this.icon,
-    this.validator, this.onPressed,
+    this.icon,
+    this.validator,
+    this.onPressed,
     this.controller,
+    this.maxLines = 1
   });
 
   @override
@@ -28,12 +31,13 @@ class CustomTextField extends StatelessWidget {
       controller: controller,
       obscureText: obscureText,
       validator: validator,
+      maxLines: maxLines,
       decoration: InputDecoration(
         hintText: hintText,
         hintStyle: context.labelMedium(),
-        prefixIcon: Padding(
+        prefixIcon: icon == null ? null : Padding(
           padding: const EdgeInsets.only(top: 12, left: 16, bottom: 12),
-          child: Image.asset(icon, width: 24, height: 24,),
+          child: Image.asset(icon!, width: 24, height: 24,),
         ),
         filled: true,
         fillColor: provider.themeMode == ThemeMode.light? context.onSecondary() : context.onPrimary(),
