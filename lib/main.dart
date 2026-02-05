@@ -4,6 +4,9 @@ import 'package:evently/providers/theme_provider.dart';
 import 'package:evently/screens/auth/forget_password_screen.dart';
 import 'package:evently/screens/auth/signup_screen.dart';
 import 'package:evently/screens/auth/login_screen.dart';
+import 'package:evently/screens/home/add_event/add_event_screen.dart';
+import 'package:evently/screens/home/edit_event/edit_event.dart';
+import 'package:evently/screens/home/event_details/event_details.dart';
 import 'package:evently/screens/home/home_screen.dart';
 import 'package:evently/screens/onboarding/intro_screen.dart';
 import 'package:evently/screens/onboarding/setup_screen.dart';
@@ -49,9 +52,10 @@ class MyApp extends StatelessWidget {
       themeMode: provider.themeMode,
 
       initialRoute: CacheHelper.getBool('introduction') == true
-          ? LoginScreen.routeName
+          ? CacheHelper.getBool('login') == true
+          ? HomeScreen.routeName
+          : LoginScreen.routeName
           : SetupScreen.routeName,
-      //initialRoute: SetupScreen.routeName,
       routes: {
         SetupScreen.routeName: (c) => SetupScreen(),
         IntroScreen.routeName: (c) => IntroScreen(),
@@ -59,6 +63,9 @@ class MyApp extends StatelessWidget {
         SignupScreen.routeName: (c) => SignupScreen(),
         ForgetPasswordScreen.routeName: (c) => ForgetPasswordScreen(),
         HomeScreen.routeName: (c) => HomeScreen(),
+        AddEventScreen.routeName: (c) => AddEventScreen(),
+        EventDetails.routeName: (c) => EventDetails(),
+        EditEvent.routeName: (c) => EditEvent()
       },
     );
   }

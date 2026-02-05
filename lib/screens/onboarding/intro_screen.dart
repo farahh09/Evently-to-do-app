@@ -1,4 +1,5 @@
-import 'package:evently/model/onboarding_model.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:evently/models/onboarding_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../core/extensions.dart';
@@ -24,26 +25,20 @@ class _IntroScreenState extends State<IntroScreen> {
     final List<OnboardingModel> pages = [
       OnboardingModel(
         image: 'assets/images/intro1.png',
-        title: 'Find Events That Inspire You',
-        description:
-            'Dive into a world of events crafted to fit '
-            'your unique interests. Whether you\'re into live music,'
-            ' art workshops, professional networking, or simply discovering'
-            ' new experiences, we have something for everyone. Our curated '
-            'recommendations will help you explore, connect, and make the most'
-            ' of every opportunity around you.',
+        title: 'intro1Title'.tr(),
+        description: 'intro1Desc'.tr(),
         index: 0,
       ),
       OnboardingModel(
         image: 'assets/images/intro2.png',
-        title: 'Effortless Event Planning',
-        description: 'Take the hassle out of organizing events with our all-in-one planning tools. From setting up invites and managing RSVPs to scheduling reminders and coordinating details, we’ve got you covered. Plan with ease and focus on what matters – creating an unforgettable experience for you and your guests.',
+        title: 'intro2Title'.tr(),
+        description: 'intro2Desc'.tr(),
         index: 1,
       ),
       OnboardingModel(
         image: 'assets/images/intro3.png',
-        title: 'Connect with Friends & Share Moments',
-        description: 'Make every event memorable by sharing the experience with others. Our platform lets you invite friends, keep everyone in the loop, and celebrate moments together. Capture and share the excitement with your network, so you can relive the highlights and cherish the memories.',
+        title: 'intro3Title'.tr(),
+        description: 'intro3Desc'.tr(),
         index: 2,
       ),
     ];
@@ -87,7 +82,7 @@ class _IntroScreenState extends State<IntroScreen> {
                     ),
                   )
               ),
-              child: Text('Skip', style: context.displaySmall().copyWith(color: provider.themeMode == ThemeMode.light? context.primary() : context.onSecondary()),),
+              child: Text('skip'.tr(), style: context.displaySmall().copyWith(color: provider.themeMode == ThemeMode.light? context.primary() : context.onSecondary()),),
             ),
           ),
         ],
@@ -131,7 +126,7 @@ class _IntroScreenState extends State<IntroScreen> {
                         borderRadius: BorderRadius.circular(16),
                       )
                   ),
-                  child: Text(currentIndex == 2? 'Get Started' : 'Next' , style: context.displayLarge()),
+                  child: Text(currentIndex == 2? 'getStarted'.tr() : 'next'.tr(), style: context.displayLarge()),
                 ),
               ),
             ),

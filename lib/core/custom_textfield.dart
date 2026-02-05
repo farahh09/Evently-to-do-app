@@ -7,18 +7,25 @@ import 'extensions.dart';
 class CustomTextField extends StatelessWidget {
   final String hintText;
   final bool obscureText;
-  final String icon;
+  final String? icon;
   final String? Function(String?)? validator;
   final VoidCallback? onPressed;
   final TextEditingController? controller;
+  final int maxLines;
+  final String? suffixIconPath;
+  final ValueChanged<String>? onChanged;
 
   const CustomTextField({
     super.key,
     required this.hintText,
     required this.obscureText,
-    required this.icon,
-    this.validator, this.onPressed,
+    this.icon,
+    this.validator,
+    this.onPressed,
     this.controller,
+    this.maxLines = 1,
+    this.suffixIconPath,
+    this.onChanged,
   });
 
   @override
@@ -27,19 +34,29 @@ class CustomTextField extends StatelessWidget {
     return TextFormField(
       controller: controller,
       obscureText: obscureText,
+      onChanged: onChanged,
       validator: validator,
+      maxLines: maxLines,
       decoration: InputDecoration(
         hintText: hintText,
         hintStyle: context.labelMedium(),
-        prefixIcon: Padding(
-          padding: const EdgeInsets.only(top: 12, left: 16, bottom: 12),
-          child: Image.asset(icon, width: 24, height: 24,),
-        ),
+        prefixIcon: icon == null
+            ? null
+            : Padding(
+                padding: const EdgeInsets.only(top: 12, left: 16, bottom: 12),
+                child: Image.asset(icon!, width: 24, height: 24),
+              ),
         filled: true,
-        fillColor: provider.themeMode == ThemeMode.light? context.onSecondary() : context.onPrimary(),
+        fillColor: provider.themeMode == ThemeMode.light
+            ? context.onSecondary()
+            : context.onPrimary(),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
-          borderSide: BorderSide(color: provider.themeMode == ThemeMode.light ? Color(0xFFF0F0F0) : context.outline()),
+          borderSide: BorderSide(
+            color: provider.themeMode == ThemeMode.light
+                ? Color(0xFFF0F0F0)
+                : context.outline(),
+          ),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
@@ -53,12 +70,12 @@ class CustomTextField extends StatelessWidget {
           borderRadius: BorderRadius.circular(16),
           borderSide: BorderSide(color: context.error()),
         ),
-        suffixIcon: onPressed == null? null : IconButton(
-          icon: Icon(obscureText ? Icons.visibility_off :
-          Icons.visibility, color: Color(0xFF898F9C),),
-          onPressed: onPressed,
-        ),
-
+        suffixIcon: suffixIconPath == null
+            ? null
+            : Padding(
+                padding: const EdgeInsets.all(12),
+                child: Image.asset(suffixIconPath!, width: 24, height: 24),
+              ),
       ),
     );
   }

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:evently/core/firebase_functions.dart';
 import 'package:evently/screens/auth/login_screen.dart';
 import 'package:flutter/material.dart';
@@ -38,18 +39,18 @@ class _SignupScreenState extends State<SignupScreen> {
               SizedBox(height: 48,),
               Align(
                   alignment: Alignment.centerLeft,
-                  child: Text("Create your account", style: context.headlineLarge(),)
+                  child: Text("createAccount".tr(), style: context.headlineLarge(),)
               ),
 
               SizedBox(height: 16,),
               CustomTextField(
                 controller: nameController,
-                hintText: 'Enter your name',
+                hintText: 'enterName'.tr(),
                 icon: 'assets/images/user.png',
                 obscureText: false,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return "Please enter your name";
+                    return "pleaseEnterName".tr();
                   }
                   return null;
                 },
@@ -59,15 +60,15 @@ class _SignupScreenState extends State<SignupScreen> {
               SizedBox(height: 16,),
               CustomTextField(
                 controller: emailController,
-                hintText: 'Enter your email',
+                hintText: 'enterEmail'.tr(),
                 icon: 'assets/images/email.png',
                 obscureText: false,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return "Please enter your Email";
+                    return "pleaseEnterEmail".tr();
                   }
                   if (!RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+",).hasMatch(value)) {
-                    return "Please enter a valid email";
+                    return "pleaseEnterValidEmail".tr();
                   }
                   return null;
                 },
@@ -76,7 +77,7 @@ class _SignupScreenState extends State<SignupScreen> {
               SizedBox(height: 16,),
               CustomTextField(
                 controller: passwordController,
-                hintText: 'Enter your password',
+                hintText: 'enterPassword'.tr(),
                 icon: 'assets/images/password.png',
                 obscureText: isObscure,
                 onPressed: (){
@@ -86,11 +87,11 @@ class _SignupScreenState extends State<SignupScreen> {
                 },
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return "Please enter your Password";
+                    return "pleaseEnterPassword".tr();
                   }
                   if (!RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$',
                   ).hasMatch(value)) {
-                    return "Please enter a valid password";
+                    return "pleaseEnterValidPassword".tr();
                   }
                   return null;
                 },
@@ -98,7 +99,7 @@ class _SignupScreenState extends State<SignupScreen> {
 
               SizedBox(height: 16,),
               CustomTextField(
-                hintText: 'Confirm your password',
+                hintText: 'confirmPassword'.tr(),
                 icon: 'assets/images/password.png',
                 obscureText: isObscure,
                 onPressed: (){
@@ -108,10 +109,10 @@ class _SignupScreenState extends State<SignupScreen> {
                 },
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return "Please enter your rePassword";
+                    return "pleaseEnterRePassword".tr();
                   }
                   if (value != passwordController.text) {
-                    return "Password not matched";
+                    return "passwordNotMatched".tr();
                   }
                   return null;
                 },
@@ -122,7 +123,8 @@ class _SignupScreenState extends State<SignupScreen> {
                   onPressed: () {
                     if(formKey.currentState!.validate()){
                       FirebaseFunctions.createUser(
-                          emailController.text, passwordController.text,
+                          emailController.text,
+                          passwordController.text,
                           nameController.text,
                           onSuccess: () {
                             Navigator.pushReplacementNamed(
@@ -138,17 +140,17 @@ class _SignupScreenState extends State<SignupScreen> {
                     }
                   },
                   fillColor: context.primary(),
-                  child: Text('Sign up', style: context.displayLarge())
+                  child: Text('signUp'.tr(), style: context.displayLarge())
               ),
 
               SizedBox(height: 24,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('Already have an account?', style: context.labelMedium(),),
+                  Text('alreadyHaveAccount'.tr(), style: context.labelMedium(),),
                   TextButton(onPressed: (){
                     Navigator.pushReplacementNamed(context, LoginScreen.routeName);
-                  }, child: Text('Login', style: context.displaySmall().copyWith(color: context.primary(), decoration: TextDecoration.underline, decorationColor: context.primary(),),))
+                  }, child: Text('login'.tr(), style: context.displaySmall().copyWith(color: context.primary(), decoration: TextDecoration.underline, decorationColor: context.primary(),),))
                 ],
               ),
 
@@ -161,7 +163,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       color: Color(0xFFF0F0F0),
                     ),
                   ),
-                  Text('Or', style: context.displayMedium(),),
+                  Text('or'.tr(), style: context.displayMedium(),),
                   Expanded(
                     child: Divider(
                       thickness: 1,
@@ -180,7 +182,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     spacing: 16,
                     children: [
                       Image.asset('assets/images/google.png', width: 24,height: 24,),
-                      Text('Sign up with Google', style: context.displayLarge().copyWith(color: context.primary())),
+                      Text('signUpWithGoogle'.tr(), style: context.displayLarge().copyWith(color: context.primary())),
                     ],
                   )
               )
