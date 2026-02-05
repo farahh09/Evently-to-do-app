@@ -2,12 +2,16 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:evently/core/custom_elevated_button.dart';
 import 'package:evently/core/custom_textfield.dart';
 import 'package:evently/core/extensions.dart';
+import 'package:evently/core/firebase_functions.dart';
+import 'package:evently/models/task_model.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../providers/theme_provider.dart';
 
 class AddEventScreen extends StatefulWidget {
   static const String routeName = 'AddEvent';
+
   const AddEventScreen({super.key});
 
   @override
@@ -29,6 +33,7 @@ class _AddEventScreenState extends State<AddEventScreen> {
   bool isTimeChosen = false;
   var titleController = TextEditingController();
   var descriptionController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     var provider = Provider.of<ThemeProvider>(context);
@@ -37,23 +42,34 @@ class _AddEventScreenState extends State<AddEventScreen> {
         leading: Container(
           margin: EdgeInsets.all(8),
           decoration: BoxDecoration(
-              color: provider.themeMode == ThemeMode.light ? context.onSecondary() : context.onPrimary(),
-              borderRadius: BorderRadius.circular(8),
-              border: BoxBorder.all(
-                color: provider.themeMode == ThemeMode.light ? Color(0xFFF0F0F0) : context.outline(),
-              )
+            color: provider.themeMode == ThemeMode.light
+                ? context.onSecondary()
+                : context.onPrimary(),
+            borderRadius: BorderRadius.circular(8),
+            border: BoxBorder.all(
+              color: provider.themeMode == ThemeMode.light
+                  ? Color(0xFFF0F0F0)
+                  : context.outline(),
+            ),
           ),
           child: InkWell(
-            onTap: (){
+            onTap: () {
               Navigator.pop(context);
             },
             child: Padding(
               padding: const EdgeInsets.only(left: 10),
-              child: Icon(Icons.arrow_back_ios, color: provider.themeMode == ThemeMode.light ? context.primary() : context.onSecondary(),),
+              child: BackButton(
+                color: provider.themeMode == ThemeMode.light
+                    ? context.primary()
+                    : context.onSecondary(),
+              ),
             ),
           ),
         ),
-        title: Text("Add event", style: context.displayLarge().copyWith(color: context.onSurface()),),
+        title: Text(
+          "addEvent".tr(),
+          style: context.displayLarge().copyWith(color: context.onSurface()),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -64,18 +80,18 @@ class _AddEventScreenState extends State<AddEventScreen> {
             ClipRRect(
               borderRadius: BorderRadius.circular(16),
               child: Image.asset(
-                provider.themeMode == ThemeMode.light?
-                "assets/images/${categories[selectedCategoryIndex]}_light.png":
-                "assets/images/${categories[selectedCategoryIndex]}_dark.png",
+                provider.themeMode == ThemeMode.light
+                    ? "assets/images/${categories[selectedCategoryIndex]}_light.png"
+                    : "assets/images/${categories[selectedCategoryIndex]}_dark.png",
                 height: 230,
                 width: double.infinity,
                 fit: BoxFit.cover,
-              )
+              ),
             ),
             SizedBox(
               height: 50,
               child: ListView.separated(
-                separatorBuilder: (context, index) => SizedBox(width: 8,),
+                separatorBuilder: (context, index) => SizedBox(width: 8),
                 itemCount: categories.length,
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
@@ -87,17 +103,24 @@ class _AddEventScreenState extends State<AddEventScreen> {
                     child: Chip(
                       label: Row(
                         children: [
-                          Image.asset('assets/images/${categories[index]}.png',
+                          Image.asset(
+                            'assets/images/${categories[index]}.png',
                             color: index == selectedCategoryIndex
-                                ? context.onPrimary() : context.primary(),
-                            width: 22,height: 19,),
-                          SizedBox(width: 4,),
+                                ? context.onPrimary()
+                                : context.primary(),
+                            width: 22,
+                            height: 19,
+                          ),
+                          SizedBox(width: 4),
                           Text(
-                            categories[index].replaceAll("_", ' ').toUpperCase(),
+                            categories[index]
+                                .replaceAll("_", ' ')
+                                .toUpperCase(),
                             style: context.displayMedium().copyWith(
                               color: index != selectedCategoryIndex
                                   ? provider.themeMode == ThemeMode.light
-                                  ? context.primary() : context.secondary()
+                                        ? context.primary()
+                                        : context.secondary()
                                   : Colors.white,
                             ),
                           ),
@@ -106,97 +129,145 @@ class _AddEventScreenState extends State<AddEventScreen> {
                       backgroundColor: index == selectedCategoryIndex
                           ? context.primary()
                           : provider.themeMode == ThemeMode.light
-                          ? Colors.white : context.onPrimary(),
+                          ? Colors.white
+                          : context.onPrimary(),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(16),
                         side: BorderSide(
                           color: provider.themeMode == ThemeMode.dark
-                              ? context.outline() : index == selectedCategoryIndex
-                              ? context.primary() : context.onPrimary(),
-                        )
+                              ? context.outline()
+                              : index == selectedCategoryIndex
+                              ? context.primary()
+                              : context.onPrimary(),
+                        ),
                       ),
                     ),
                   );
                 },
               ),
             ),
-            Text('Title', style: context.displayMedium().copyWith(color: context.onSurface()),),
+            Text(
+              'title'.tr(),
+              style: context.displayMedium().copyWith(
+                color: context.onSurface(),
+              ),
+            ),
             CustomTextField(
               controller: titleController,
-              hintText: 'Event title',
+              hintText: 'eventTitle'.tr(),
               obscureText: false,
             ),
-            Text('Description', style: context.displayMedium().copyWith(color: context.onSurface()),),
+            Text(
+              'description'.tr(),
+              style: context.displayMedium().copyWith(
+                color: context.onSurface(),
+              ),
+            ),
             CustomTextField(
               controller: descriptionController,
-              hintText: 'Event Description....',
+              hintText: 'eventDescription'.tr(),
               obscureText: false,
               maxLines: 5,
             ),
             Row(
               children: [
-                Image.asset('assets/images/calendar.png', width: 24, height: 24,),
-                SizedBox(width: 6,),
-                Text('Event Date',style: context.displayMedium().copyWith(color: context.onSurface())),
+                Image.asset(
+                  'assets/images/calendar.png',
+                  width: 24,
+                  height: 24,
+                ),
+                SizedBox(width: 6),
+                Text(
+                  'eventDate'.tr(),
+                  style: context.displayMedium().copyWith(
+                    color: context.onSurface(),
+                  ),
+                ),
                 Spacer(),
                 InkWell(
-                  onTap: (){
+                  onTap: () {
                     selectDateTime();
                   },
                   child: Text(
-                      isDateChosen?
-                      DateFormat('MMMdd, yyyy').format(selectedDate) :
-                      'Choose date',
-                      style: context.titleSmall()),
-                )
+                    isDateChosen
+                        ? DateFormat('MMMdd, yyyy').format(selectedDate)
+                        : 'chooseDate'.tr(),
+                    style: context.titleSmall(),
+                  ),
+                ),
               ],
             ),
             Row(
               children: [
-                Image.asset('assets/images/clock.png', width: 24, height: 24,),
-                SizedBox(width: 6,),
-                Text('Event Time',style: context.displayMedium().copyWith(color: context.onSurface())),
+                Image.asset('assets/images/clock.png', width: 24, height: 24),
+                SizedBox(width: 6),
+                Text(
+                  'eventTime'.tr(),
+                  style: context.displayMedium().copyWith(
+                    color: context.onSurface(),
+                  ),
+                ),
                 Spacer(),
                 InkWell(
-                  onTap: (){
+                  onTap: () {
                     selectTime();
                   },
                   child: Text(
-                    isTimeChosen?
-                    selectedTime.format(context) :
-                    'Choose time', style: context.titleSmall()),
-                )
+                    isTimeChosen ? selectedTime.format(context) : 'chooseTime'.tr(),
+                    style: context.titleSmall(),
+                  ),
+                ),
               ],
             ),
-            SizedBox(height: 24,),
+            SizedBox(height: 24),
             CustomElevatedButton(
-                onPressed: (){},
-                fillColor: context.primary(),
-                child: Text('Add event', style: context.displayLarge(),)
-            )
+              onPressed: () async {
+                await FirebaseFunctions.createTask(
+                  TaskModel(
+                    title: titleController.text,
+                    description: descriptionController.text,
+                    category: categories[selectedCategoryIndex],
+                    date: selectedDate.millisecondsSinceEpoch,
+                    time: DateTime(
+                      selectedDate.year,
+                      selectedDate.month,
+                      selectedDate.day,
+                      selectedTime.hour,
+                      selectedTime.minute,
+                    ).millisecondsSinceEpoch,
+                    userId: FirebaseAuth.instance.currentUser!.uid,
+                  ),
+                );
+                Navigator.pop(context);
+              },
+              fillColor: context.primary(),
+              child: Text('addEvent'.tr(), style: context.displayLarge()),
+            ),
           ],
         ),
       ),
     );
   }
+
   Future<void> selectDateTime() async {
     DateTime? chosenDate = await showDatePicker(
       context: context,
       firstDate: DateTime.now(),
       initialDate: selectedDate,
-      builder: (context, child) => Theme(data: Theme.of(context).copyWith(
-        colorScheme: ColorScheme.light(
-          primary: context.primary(),
-          onPrimary: context.onPrimary(),
-          onSurface: context.primary(),
-          surface: context.surface()
-        ),
-        textButtonTheme: TextButtonThemeData(
-          style: TextButton.styleFrom(
-            foregroundColor: context.primary(),
+      builder: (context, child) => Theme(
+        data: Theme.of(context).copyWith(
+          colorScheme: ColorScheme.light(
+            primary: context.primary(),
+            onPrimary: context.onPrimary(),
+            onSurface: context.primary(),
+            surface: context.surface(),
+          ),
+          textButtonTheme: TextButtonThemeData(
+            style: TextButton.styleFrom(foregroundColor: context.primary()),
           ),
         ),
-      ), child: child!),
+        child: child!,
+      ),
       lastDate: DateTime.now().add(Duration(days: 365)),
     );
     if (chosenDate != null) {
@@ -205,6 +276,7 @@ class _AddEventScreenState extends State<AddEventScreen> {
       setState(() {});
     }
   }
+
   Future<void> selectTime() async {
     TimeOfDay? pickedTime = await showTimePicker(
       context: context,
@@ -219,9 +291,7 @@ class _AddEventScreenState extends State<AddEventScreen> {
               surface: context.surface(),
             ),
             textButtonTheme: TextButtonThemeData(
-              style: TextButton.styleFrom(
-                foregroundColor: context.primary(),
-              ),
+              style: TextButton.styleFrom(foregroundColor: context.primary()),
             ),
           ),
           child: MediaQuery(
@@ -237,5 +307,4 @@ class _AddEventScreenState extends State<AddEventScreen> {
       setState(() {});
     }
   }
-
 }
