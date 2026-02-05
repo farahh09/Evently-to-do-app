@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:evently/core/custom_elevated_button.dart';
 import 'package:evently/core/custom_textfield.dart';
 import 'package:evently/core/firebase_functions.dart';
@@ -5,6 +6,7 @@ import 'package:evently/screens/auth/forget_password_screen.dart';
 import 'package:evently/screens/auth/signup_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../core/cache_helper.dart';
 import '../../core/extensions.dart';
 import '../home/home_screen.dart';
 import '/providers/theme_provider.dart';
@@ -39,17 +41,17 @@ class _LoginScreenState extends State<LoginScreen> {
               SizedBox(height: 48,),
               Align(
                   alignment: Alignment.centerLeft,
-                  child: Text("Login to your account", style: context.headlineLarge(),)
+                  child: Text("loginToAccount".tr(), style: context.headlineLarge(),)
               ),
               SizedBox(height: 16,),
               CustomTextField(
                 controller: emailController,
-                hintText: 'Enter your email',
+                hintText: 'enterEmail'.tr(),
                 icon: 'assets/images/email.png',
                 obscureText: false,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return "Please enter your Email";
+                    return "pleaseEnterEmail".tr();
                   }
                   return null;
                 },
@@ -58,7 +60,7 @@ class _LoginScreenState extends State<LoginScreen> {
               SizedBox(height: 16,),
               CustomTextField(
                 controller: passwordController,
-                hintText: 'Enter your password',
+                hintText: 'enterPassword'.tr(),
                 icon: 'assets/images/password.png',
                 obscureText: isObscure,
                 onPressed: (){
@@ -68,7 +70,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 },
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return "Please enter your Password";
+                    return "pleaseEnterPassword".tr();
                   }
                   return null;
                 },
@@ -80,7 +82,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: TextButton(onPressed: (){
                   Navigator.pushNamed(context, ForgetPasswordScreen.routeName);
                 },
-                    child: Text('Forget Password?', style: context.displaySmall().copyWith(color: context.primary(), decoration: TextDecoration.underline,decorationColor: context.primary(),),)
+                    child: Text('forgetPassword'.tr(), style: context.displaySmall().copyWith(color: context.primary(), decoration: TextDecoration.underline,decorationColor: context.primary(),),)
                 ),
               ),
               SizedBox(height: 47,),
@@ -90,7 +92,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     FirebaseFunctions.login(
                         emailController.text,
                         passwordController.text,
-                        onSuccess: (){
+                        onSuccess: () async{
+                          await CacheHelper.saveLogin(true);
                           Navigator.pushReplacementNamed(context, HomeScreen.routeName);
                         },
                         onError: (message) {
@@ -105,17 +108,17 @@ class _LoginScreenState extends State<LoginScreen> {
                   }
                 },
                 fillColor: context.primary(),
-                child: Text('Login', style: context.displayLarge())
+                child: Text('login'.tr(), style: context.displayLarge())
               ),
           
               SizedBox(height: 48,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('Don\'t have an account?', style: context.labelMedium(),),
+                  Text('dontHaveAccount'.tr(), style: context.labelMedium(),),
                   TextButton(onPressed: (){
                     Navigator.pushReplacementNamed(context, SignupScreen.routeName);
-                  }, child: Text('Signup', style: context.displaySmall().copyWith(color: context.primary(), decoration: TextDecoration.underline, decorationColor: context.primary(),),))
+                  }, child: Text('signUp'.tr(), style: context.displaySmall().copyWith(color: context.primary(), decoration: TextDecoration.underline, decorationColor: context.primary(),),))
                 ],
               ),
           
@@ -128,7 +131,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       color: Color(0xFFF0F0F0),
                     ),
                   ),
-                  Text('Or', style: context.displayMedium(),),
+                  Text('or'.tr(), style: context.displayMedium(),),
                   Expanded(
                     child: Divider(
                       thickness: 1,
@@ -147,7 +150,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     spacing: 16,
                     children: [
                       Image.asset('assets/images/google.png', width: 24,height: 24,),
-                      Text('Login with Google', style: context.displayLarge().copyWith(color: context.primary())),
+                      Text('loginWithGoogle'.tr(), style: context.displayLarge().copyWith(color: context.primary())),
                     ],
                   )
               )

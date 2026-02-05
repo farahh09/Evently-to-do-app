@@ -7,11 +7,15 @@ class CacheHelper {
     prefs = await SharedPreferences.getInstance();
   }
 
-  static Future<bool> saveBool(bool flag) async {
+  static Future<bool> saveLogin(bool flag) async {
+    return await prefs.setBool('login', flag);
+  }
+
+  static Future<bool> saveIntroduction(bool flag) async {
     return await prefs.setBool('introduction', flag);
   }
 
-  static bool? getBool (String key) {
+  static bool? getBool(String key) {
     return prefs.getBool(key);
   }
 }

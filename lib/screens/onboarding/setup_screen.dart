@@ -54,7 +54,7 @@ class SetupScreen extends StatelessWidget {
                             ),
                           )
                       ),
-                      child: Text("English", style: context.displaySmall().copyWith(color: provider.themeMode == ThemeMode.dark? context.onSurface() : context.locale == Locale("en", "US") ? context.onSecondary() : context.primary())),
+                      child: Text("english".tr(), style: context.displaySmall().copyWith(color: provider.themeMode == ThemeMode.dark? context.onSurface() : context.locale == Locale("en", "US") ? context.onSecondary() : context.primary())),
                     ),
                     ElevatedButton(
                       onPressed: (){
@@ -70,7 +70,7 @@ class SetupScreen extends StatelessWidget {
                             ) : BorderSide.none,
                           ),
                       ),
-                      child:  Text("Arabic", style: context.displaySmall().copyWith(color: provider.themeMode == ThemeMode.dark? context.onSurface() : context.locale == Locale("en", "US") ? context.primary() : context.onSecondary())),
+                      child:  Text("arabic".tr(), style: context.displaySmall().copyWith(color: provider.themeMode == ThemeMode.dark? context.onSurface() : context.locale == Locale("en", "US") ? context.primary() : context.onSecondary())),
                     ),
                   ],
                 ),
@@ -127,7 +127,7 @@ class SetupScreen extends StatelessWidget {
               width: double.infinity,
               child: ElevatedButton(
                   onPressed: () async{
-                    await CacheHelper.saveBool(true);
+                    await CacheHelper.saveIntroduction(true);
                     Navigator.pushReplacementNamed(context, IntroScreen.routeName);
                   },
                 style: ElevatedButton.styleFrom(
@@ -138,7 +138,7 @@ class SetupScreen extends StatelessWidget {
 
                   )
                 ),
-                child:  Text("Let’s Start", style: context.displayLarge()),
+                child: Text("letsStart".tr(), style: context.displayLarge()),
               ),
             )
           ],

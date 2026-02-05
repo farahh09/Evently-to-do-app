@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:evently/core/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -36,7 +37,7 @@ class ForgetPasswordScreen extends StatelessWidget {
               ),
           )
         ),
-        title: Text('Forget Password', style: context.displayMedium().copyWith(color: context.onSurface()),),
+        title: Text('forgetPasswordTitle'.tr(), style: context.displayMedium().copyWith(color: context.onSurface()),),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -46,7 +47,7 @@ class ForgetPasswordScreen extends StatelessWidget {
             Image.asset('assets/images/forget_password.png', color: provider.themeMode == ThemeMode.dark? context.onSurface() : null,),
             CustomTextField(
               controller: emailController,
-              hintText: 'Enter your email',
+              hintText: 'enterEmail'.tr(),
               icon: 'assets/images/email.png',
               obscureText: false,
             ),
@@ -54,7 +55,7 @@ class ForgetPasswordScreen extends StatelessWidget {
             CustomElevatedButton(
                 onPressed: () {},
                 fillColor: context.primary(),
-                child: Text('Reset password', style: context.displayLarge())
+                child: Text('resetPassword'.tr(), style: context.displayLarge())
             ),
           ],
         ),
