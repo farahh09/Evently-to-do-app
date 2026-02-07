@@ -24,6 +24,7 @@ dependencies:
   flutter_switch: ^0.3.2
   flutter_slidable: ^4.0.3
   google_sign_in: ^6.3.0
+  flutter_native_splash: ^2.4.7
 
 dev_dependencies:
   flutter_test:
@@ -38,3 +39,15 @@ flutter:
   assets:
     - assets/images/
     - assets/translations/
+
+flutter_native_splash:
+  color: "#F4F7FF"
+  image: assets/images/splash_ic.png
+  branding: assets/images/splash_branding.png
+  ios: true
+
+  android_12:
+    color: "#F4F7FF"
+    image: assets/images/splash_ic.png
+    icon_background_color: "#F4F7FF"
+    branding: assets/images/splash_branding.png
