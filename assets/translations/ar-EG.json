@@ -44,6 +44,8 @@
   "resetPassword": "إعادة تعيين كلمة المرور",
 
   "welcomeBack": "مرحباً بعودتك ✨",
+  "en": "EN",
+  "ar": "AR",
   "home": "الرئيسية",
   "favorite": "المفضلة",
   "profile": "الملف الشخصي",
@@ -64,5 +66,14 @@
 
   "darkMode": "الوضع الداكن",
   "logout": "تسجيل الخروج",
-  "eventDetails": "تفاصيل الفعالية"
+  "eventDetails": "تفاصيل الفعالية",
+  "categories": {
+    "all": "الكل",
+    "sport": "رياضة",
+    "birthday": "عيد ميلاد",
+    "book_club": "نادي الكتاب",
+    "exhibition": "معرض",
+    "meeting": "اجتماع"
+  }
+
 }

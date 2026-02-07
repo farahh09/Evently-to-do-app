@@ -138,7 +138,7 @@ class SetupScreen extends StatelessWidget {
 
                   )
                 ),
-                child: Text("letsStart".tr(), style: context.displayLarge()),
+                child:  Text("letsStart".tr(), style: context.displayLarge()),
               ),
             )
           ],

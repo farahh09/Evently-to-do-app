@@ -36,125 +36,143 @@ class _LoginScreenState extends State<LoginScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 17),
         child: Form(
           key: formKey,
-          child: Column(
-            children: [
-              SizedBox(height: 48,),
-              Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text("loginToAccount".tr(), style: context.headlineLarge(),)
-              ),
-              SizedBox(height: 16,),
-              CustomTextField(
-                controller: emailController,
-                hintText: 'enterEmail'.tr(),
-                icon: 'assets/images/email.png',
-                obscureText: false,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return "pleaseEnterEmail".tr();
-                  }
-                  return null;
-                },
-              ),
-          
-              SizedBox(height: 16,),
-              CustomTextField(
-                controller: passwordController,
-                hintText: 'enterPassword'.tr(),
-                icon: 'assets/images/password.png',
-                obscureText: isObscure,
-                onPressed: (){
-                  setState(() {
-                    isObscure = !isObscure;
-                  });
-                },
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return "pleaseEnterPassword".tr();
-                  }
-                  return null;
-                },
-              ),
-          
-              SizedBox(height: 8,),
-              Align(
-                alignment: Alignment.centerRight,
-                child: TextButton(onPressed: (){
-                  Navigator.pushNamed(context, ForgetPasswordScreen.routeName);
-                },
-                    child: Text('forgetPassword'.tr(), style: context.displaySmall().copyWith(color: context.primary(), decoration: TextDecoration.underline,decorationColor: context.primary(),),)
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                SizedBox(height: 48,),
+                Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text("loginToAccount".tr(), style: context.headlineLarge(),)
                 ),
-              ),
-              SizedBox(height: 47,),
-              CustomElevatedButton(
-                onPressed: () {
-                  if(formKey.currentState!.validate()){
-                    FirebaseFunctions.login(
-                        emailController.text,
-                        passwordController.text,
-                        onSuccess: () async{
-                          await CacheHelper.saveLogin(true);
-                          Navigator.pushReplacementNamed(context, HomeScreen.routeName);
-                        },
-                        onError: (message) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text(
-                                message,
-                                style: context.displayMedium(),
-                              ))
-                          );
-                        }
-                    );
-                  }
-                },
-                fillColor: context.primary(),
-                child: Text('login'.tr(), style: context.displayLarge())
-              ),
-          
-              SizedBox(height: 48,),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text('dontHaveAccount'.tr(), style: context.labelMedium(),),
-                  TextButton(onPressed: (){
-                    Navigator.pushReplacementNamed(context, SignupScreen.routeName);
-                  }, child: Text('signUp'.tr(), style: context.displaySmall().copyWith(color: context.primary(), decoration: TextDecoration.underline, decorationColor: context.primary(),),))
-                ],
-              ),
-          
-              SizedBox(height: 32,),
-              Row(
-                children: [
-                  Expanded(
-                    child: Divider(
-                      thickness: 1,
-                      color: Color(0xFFF0F0F0),
-                    ),
+                SizedBox(height: 16,),
+                CustomTextField(
+                  controller: emailController,
+                  hintText: 'enterEmail'.tr(),
+                  icon: 'assets/images/email.png',
+                  obscureText: false,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "pleaseEnterEmail".tr();
+                    }
+                    return null;
+                  },
+                ),
+            
+                SizedBox(height: 16,),
+                CustomTextField(
+                  controller: passwordController,
+                  hintText: 'enterPassword'.tr(),
+                  icon: 'assets/images/password.png',
+                  obscureText: isObscure,
+                  onPressed: (){
+                    setState(() {
+                      isObscure = !isObscure;
+                    });
+                  },
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "pleaseEnterPassword".tr();
+                    }
+                    return null;
+                  },
+                ),
+            
+                SizedBox(height: 8,),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: TextButton(onPressed: (){
+                    Navigator.pushNamed(context, ForgetPasswordScreen.routeName);
+                  },
+                      child: Text('forgetPassword'.tr(), style: context.displaySmall().copyWith(color: context.primary(), decoration: TextDecoration.underline,decorationColor: context.primary(),),)
                   ),
-                  Text('or'.tr(), style: context.displayMedium(),),
-                  Expanded(
-                    child: Divider(
-                      thickness: 1,
-                      color: Color(0xFFF0F0F0),
+                ),
+                SizedBox(height: 47,),
+                CustomElevatedButton(
+                  onPressed: () {
+                    if(formKey.currentState!.validate()){
+                      FirebaseFunctions.login(
+                          emailController.text,
+                          passwordController.text,
+                          onSuccess: () async{
+                            await CacheHelper.saveLogin(true);
+                            Navigator.pushReplacementNamed(context, HomeScreen.routeName);
+                          },
+                          onError: (message) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text(
+                                  message,
+                                  style: context.displayMedium(),
+                                ))
+                            );
+                          }
+                      );
+                    }
+                  },
+                  fillColor: context.primary(),
+                  child: Text('login'.tr(), style: context.displayLarge())
+                ),
+            
+                SizedBox(height: 48,),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text('dontHaveAccount'.tr(), style: context.labelMedium(),),
+                    TextButton(onPressed: (){
+                      Navigator.pushReplacementNamed(context, SignupScreen.routeName);
+                    }, child: Text('signUp'.tr(), style: context.displaySmall().copyWith(color: context.primary(), decoration: TextDecoration.underline, decorationColor: context.primary(),),))
+                  ],
+                ),
+            
+                SizedBox(height: 32,),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Divider(
+                        thickness: 1,
+                        color: Color(0xFFF0F0F0),
+                      ),
                     ),
-                  ),
-                ],
-              ),
-          
-              SizedBox(height: 32,),
-              CustomElevatedButton(
-                  onPressed: (){},
-                  fillColor: provider.themeMode == ThemeMode.light ? context.onSecondary() : context.onPrimary(),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    spacing: 16,
-                    children: [
-                      Image.asset('assets/images/google.png', width: 24,height: 24,),
-                      Text('loginWithGoogle'.tr(), style: context.displayLarge().copyWith(color: context.primary())),
-                    ],
-                  )
-              )
-            ],
+                    Text('or'.tr(), style: context.displayMedium(),),
+                    Expanded(
+                      child: Divider(
+                        thickness: 1,
+                        color: Color(0xFFF0F0F0),
+                      ),
+                    ),
+                  ],
+                ),
+            
+                SizedBox(height: 32,),
+                CustomElevatedButton(
+                    onPressed: (){
+                      FirebaseFunctions.signInWithGoogle(
+                          onSuccess: () async{
+                            await CacheHelper.saveLogin(true);
+                            Navigator.pushReplacementNamed(
+                                context, HomeScreen.routeName);
+                          },
+                          onError: (message){
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text(
+                                  message,
+                                  style: context.displayMedium(),
+                                ))
+                            );
+                          }
+                      );
+                    },
+                    fillColor: provider.themeMode == ThemeMode.light ? context.onSecondary() : context.onPrimary(),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      spacing: 16,
+                      children: [
+                        Image.asset('assets/images/google.png', width: 24,height: 24,),
+                        Text('loginWithGoogle'.tr(), style: context.displayLarge().copyWith(color: context.primary())),
+                      ],
+                    )
+                )
+              ],
+            ),
           ),
         ),
       ),

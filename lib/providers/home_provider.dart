@@ -10,7 +10,7 @@ class HomeProvider extends ChangeNotifier{
     selectedIndex = index;
     notifyListeners();
   }
-   Future<void> getUser() async{
+  Future<void> getUser() async{
     user = await FirebaseFunctions.readUser();
     notifyListeners();
   }

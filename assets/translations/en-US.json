@@ -44,6 +44,8 @@
   "resetPassword": "Reset password",
 
   "welcomeBack": "Welcome Back ✨",
+  "en": "EN",
+  "ar": "AR",
   "home": "Home",
   "favorite": "Favorite",
   "profile": "Profile",
@@ -64,5 +66,14 @@
 
   "darkMode": "Dark mode",
   "logout": "Logout",
-  "eventDetails": "Event Details"
+  "eventDetails": "Event Details",
+  "categories": {
+    "all": "All",
+    "sport": "Sport",
+    "birthday": "Birthday",
+    "book_club": "Book Club",
+    "exhibition": "Exhibition",
+    "meeting": "Meeting"
+  }
+
 }

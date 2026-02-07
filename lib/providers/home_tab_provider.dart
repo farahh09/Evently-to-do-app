@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:evently/core/firebase_functions.dart';
 import 'package:evently/models/task_model.dart';
 import 'package:flutter/material.dart';

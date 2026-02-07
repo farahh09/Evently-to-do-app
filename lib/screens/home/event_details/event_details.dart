@@ -1,9 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:evently/screens/add_edit_event/event_form_screen.dart';
 import 'package:evently/core/extensions.dart';
 import 'package:evently/core/firebase_functions.dart';
 import 'package:evently/models/task_model.dart';
 import 'package:evently/providers/theme_provider.dart';
-import 'package:evently/screens/home/edit_event/edit_event.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -26,7 +26,7 @@ class _EventDetailsState extends State<EventDetails> {
       task = ModalRoute.of(context)!.settings.arguments as TaskModel;
       isInitialized = true;
     }
-    var themeProvider = Provider.of<ThemeProvider>(context);
+    final themeProvider = context.watch<ThemeProvider>();
     return Scaffold(
       appBar: AppBar(
         leading: Container(
@@ -46,13 +46,10 @@ class _EventDetailsState extends State<EventDetails> {
             onTap: () {
               Navigator.pop(context);
             },
-            child: Padding(
-              padding: const EdgeInsets.only(left: 10),
-              child: BackButton(
-                color: themeProvider.themeMode == ThemeMode.light
-                    ? context.primary()
-                    : context.onSecondary(),
-              ),
+            child: BackButton(
+              color: themeProvider.themeMode == ThemeMode.light
+                  ? context.primary()
+                  : context.onSecondary(),
             ),
           ),
         ),
@@ -72,7 +69,7 @@ class _EventDetailsState extends State<EventDetails> {
               onTap: () async {
                 var updatedTask = await Navigator.pushNamed(
                   context,
-                  EditEvent.routeName,
+                  EventFormScreen.routeName,
                   arguments: task,
                 );
 

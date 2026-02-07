@@ -1,10 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:evently/core/custom_textfield.dart';
+import 'package:evently/core/extensions.dart';
 import 'package:evently/providers/favorite_provider.dart';
+import 'package:evently/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../../core/extensions.dart';
-import '../../../providers/theme_provider.dart';
+
 
 class FavoriteTab extends StatelessWidget {
   FavoriteTab({super.key});
@@ -13,7 +14,7 @@ class FavoriteTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var themeProvider = Provider.of<ThemeProvider>(context);
+    final themeProvider = context.watch<ThemeProvider>();
 
     return ChangeNotifierProvider(
       create: (context) => FavoriteProvider()..getTasks(),

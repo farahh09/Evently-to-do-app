@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../providers/theme_provider.dart';
 import 'extensions.dart';
 
@@ -37,6 +36,7 @@ class CustomTextField extends StatelessWidget {
       onChanged: onChanged,
       validator: validator,
       maxLines: maxLines,
+      textInputAction: TextInputAction.done,
       decoration: InputDecoration(
         hintText: hintText,
         hintStyle: context.labelMedium(),
@@ -70,12 +70,20 @@ class CustomTextField extends StatelessWidget {
           borderRadius: BorderRadius.circular(16),
           borderSide: BorderSide(color: context.error()),
         ),
-        suffixIcon: suffixIconPath == null
-            ? null
-            : Padding(
+        suffixIcon: onPressed != null
+            ? IconButton(
+                icon: Icon(
+                  obscureText ? Icons.visibility_off : Icons.visibility,
+                  color: Color(0xFF898F9C),
+                ),
+                onPressed: onPressed,
+              )
+            : suffixIconPath != null
+            ? Padding(
                 padding: const EdgeInsets.all(12),
                 child: Image.asset(suffixIconPath!, width: 24, height: 24),
-              ),
+              )
+            : null,
       ),
     );
   }

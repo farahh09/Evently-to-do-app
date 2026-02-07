@@ -1,11 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:evently/core/app_theme_data.dart';
+import 'package:evently/providers/home_tab_provider.dart';
 import 'package:evently/providers/theme_provider.dart';
 import 'package:evently/screens/auth/forget_password_screen.dart';
 import 'package:evently/screens/auth/signup_screen.dart';
 import 'package:evently/screens/auth/login_screen.dart';
-import 'package:evently/screens/home/add_event/add_event_screen.dart';
-import 'package:evently/screens/home/edit_event/edit_event.dart';
 import 'package:evently/screens/home/event_details/event_details.dart';
 import 'package:evently/screens/home/home_screen.dart';
 import 'package:evently/screens/onboarding/intro_screen.dart';
@@ -14,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'core/cache_helper.dart';
+import 'screens/add_edit_event/event_form_screen.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -42,7 +42,6 @@ class MyApp extends StatelessWidget {
     var provider = Provider.of<ThemeProvider>(context);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       locale: context.locale,
@@ -53,8 +52,8 @@ class MyApp extends StatelessWidget {
 
       initialRoute: CacheHelper.getBool('introduction') == true
           ? CacheHelper.getBool('login') == true
-          ? HomeScreen.routeName
-          : LoginScreen.routeName
+                ? HomeScreen.routeName
+                : LoginScreen.routeName
           : SetupScreen.routeName,
       routes: {
         SetupScreen.routeName: (c) => SetupScreen(),
@@ -63,9 +62,8 @@ class MyApp extends StatelessWidget {
         SignupScreen.routeName: (c) => SignupScreen(),
         ForgetPasswordScreen.routeName: (c) => ForgetPasswordScreen(),
         HomeScreen.routeName: (c) => HomeScreen(),
-        AddEventScreen.routeName: (c) => AddEventScreen(),
         EventDetails.routeName: (c) => EventDetails(),
-        EditEvent.routeName: (c) => EditEvent()
+        EventFormScreen.routeName: (c) => EventFormScreen(),
       },
     );
   }
