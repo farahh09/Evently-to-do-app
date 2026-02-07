@@ -1,24 +1,70 @@
-import 'package:evently/screens/intro_screen/intro_screen.dart';
-import 'package:evently/screens/login_screen/login_screen.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:evently/core/app_theme_data.dart';
+import 'package:evently/providers/home_tab_provider.dart';
+import 'package:evently/providers/theme_provider.dart';
+import 'package:evently/screens/auth/forget_password_screen.dart';
+import 'package:evently/screens/auth/signup_screen.dart';
+import 'package:evently/screens/auth/login_screen.dart';
+import 'package:evently/screens/home/event_details/event_details.dart';
+import 'package:evently/screens/home/home_screen.dart';
+import 'package:evently/screens/onboarding/intro_screen.dart';
+import 'package:evently/screens/onboarding/setup_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'core/cache_helper.dart';
+import 'screens/add_edit_event/event_form_screen.dart';
+import 'firebase_options.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await CacheHelper.init();
+  await EasyLocalization.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  runApp(
+    EasyLocalization(
+      supportedLocales: [Locale('en', 'US'), Locale('ar', 'EG')],
+      path: 'assets/translations',
+      fallbackLocale: Locale('en', 'US'),
+      child: ChangeNotifierProvider(
+        create: (BuildContext context) => ThemeProvider(),
+        child: MyApp(),
+      ),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<ThemeProvider>(context);
     return MaterialApp(
-      initialRoute: IntroScreen.routeName,
+      debugShowCheckedModeBanner: false,
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
+
+      theme: AppThemeData.lightTheme,
+      darkTheme: AppThemeData.darkTheme,
+      themeMode: provider.themeMode,
+
+      initialRoute: CacheHelper.getBool('introduction') == true
+          ? CacheHelper.getBool('login') == true
+                ? HomeScreen.routeName
+                : LoginScreen.routeName
+          : SetupScreen.routeName,
       routes: {
-        IntroScreen.routeName : (c) => IntroScreen(),
-        LoginScreen.routeName : (c) => LoginScreen(),
+        SetupScreen.routeName: (c) => SetupScreen(),
+        IntroScreen.routeName: (c) => IntroScreen(),
+        LoginScreen.routeName: (c) => LoginScreen(),
+        SignupScreen.routeName: (c) => SignupScreen(),
+        ForgetPasswordScreen.routeName: (c) => ForgetPasswordScreen(),
+        HomeScreen.routeName: (c) => HomeScreen(),
+        EventDetails.routeName: (c) => EventDetails(),
+        EventFormScreen.routeName: (c) => EventFormScreen(),
       },
     );
   }
 }
-
