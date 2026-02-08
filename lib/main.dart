@@ -1,6 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:evently/core/app_theme_data.dart';
-import 'package:evently/providers/home_tab_provider.dart';
 import 'package:evently/providers/theme_provider.dart';
 import 'package:evently/screens/auth/forget_password_screen.dart';
 import 'package:evently/screens/auth/signup_screen.dart';
